@@ -1,11 +1,13 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Plus, Bot, Settings, Play, Pause, Activity } from 'lucide-react';
 
 const Agents = () => {
+  const navigate = useNavigate();
+
   const agents = [
     {
       id: 1,
@@ -59,7 +61,10 @@ const Agents = () => {
                 Manage and configure your AI assistants
               </p>
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => navigate('/agents/create')}
+            >
               <Plus className="h-4 w-4 mr-2" />
               Create Agent
             </Button>

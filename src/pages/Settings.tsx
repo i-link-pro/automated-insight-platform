@@ -1,11 +1,14 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Settings as SettingsIcon, User, Bell, Shield, CreditCard, Database, Zap } from 'lucide-react';
 
 const Settings = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />
@@ -48,10 +51,13 @@ const Settings = () => {
                   <Database className="h-4 w-4 mr-3" />
                   Data & Privacy
                 </a>
-                <a href="#" className="flex items-center px-3 py-2 text-sm rounded-lg text-slate-700 hover:bg-slate-50">
+                <button 
+                  onClick={() => navigate('/settings/integrations')}
+                  className="flex items-center px-3 py-2 text-sm rounded-lg text-slate-700 hover:bg-slate-50 w-full text-left"
+                >
                   <Zap className="h-4 w-4 mr-3" />
                   Integrations
-                </a>
+                </button>
               </nav>
             </div>
 

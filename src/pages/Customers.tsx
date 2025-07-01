@@ -1,11 +1,13 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Plus, User, Mail, Phone, MapPin, Calendar } from 'lucide-react';
 
 const Customers = () => {
+  const navigate = useNavigate();
+
   const customers = [
     {
       id: 1,
@@ -74,7 +76,10 @@ const Customers = () => {
                 Manage your customer relationships and data
               </p>
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => navigate('/customers/add')}
+            >
               <Plus className="h-4 w-4 mr-2" />
               Add Customer
             </Button>

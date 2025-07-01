@@ -1,11 +1,13 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Plus, Play, Pause, BarChart3, Users, Calendar } from 'lucide-react';
 
 const Campaigns = () => {
+  const navigate = useNavigate();
+
   const campaigns = [
     {
       id: 1,
@@ -59,7 +61,10 @@ const Campaigns = () => {
                 Create and manage AI-powered marketing campaigns
               </p>
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => navigate('/campaigns/new')}
+            >
               <Plus className="h-4 w-4 mr-2" />
               New Campaign
             </Button>

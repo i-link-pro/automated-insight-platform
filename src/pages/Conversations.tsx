@@ -1,16 +1,23 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
-import { MessageSquare, User, Bot, Clock, Star } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { MessageSquare, User, Bot, Clock, Star, Search, Filter, Phone, Video } from 'lucide-react';
 
 const Conversations = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+
   const conversations = [
     {
       id: 1,
       customer: 'John Smith',
       agent: 'Sarah',
       status: 'active',
+      type: 'chat',
       lastMessage: 'Thanks for helping me with the billing issue!',
       timestamp: '2 min ago',
       sentiment: 'positive',
@@ -21,6 +28,7 @@ const Conversations = () => {
       customer: 'Emily Johnson',
       agent: 'Mike',
       status: 'resolved',
+      type: 'call',
       lastMessage: 'Perfect, that solved my problem.',
       timestamp: '15 min ago',
       sentiment: 'positive',
@@ -31,6 +39,7 @@ const Conversations = () => {
       customer: 'David Wilson',
       agent: 'Emma',
       status: 'waiting',
+      type: 'chat',
       lastMessage: 'I need help with account setup.',
       timestamp: '1 hour ago',
       sentiment: 'neutral',
@@ -41,12 +50,27 @@ const Conversations = () => {
       customer: 'Sarah Davis',
       agent: 'Sarah',
       status: 'escalated',
+      type: 'call',
       lastMessage: 'This is getting frustrating...',
       timestamp: '2 hours ago',
       sentiment: 'negative',
       rating: null
     }
   ];
+
+  const filteredConversations = conversations.filter(conversation => {
+    const matchesSearch = conversation.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         conversation.agent.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         conversation.lastMessage.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesFilter = filterStatus === 'all' || conversation.status === filterStatus;
+    
+    return matchesSearch && matchesFilter;
+  });
+
+  const handleConversationClick = (conversation: any) => {
+    navigate(`/conversations/${conversation.id}/${conversation.type}`);
+  };
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -63,6 +87,33 @@ const Conversations = () => {
             <p className="text-slate-600">
               Monitor and manage customer interactions
             </p>
+          </div>
+
+          {/* Search and Filter */}
+          <div className="mb-6 flex flex-col sm:flex-row gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <Input
+                placeholder="Search conversations..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <div className="relative">
+              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              >
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="resolved">Resolved</option>
+                <option value="waiting">Waiting</option>
+                <option value="escalated">Escalated</option>
+              </select>
+            </div>
           </div>
 
           {/* Conversation Stats */}
@@ -108,11 +159,17 @@ const Conversations = () => {
           {/* Conversations List */}
           <div className="bg-white rounded-xl shadow-sm border border-slate-200">
             <div className="p-6 border-b border-slate-200">
-              <h3 className="text-lg font-semibold text-slate-900">Recent Conversations</h3>
+              <h3 className="text-lg font-semibold text-slate-900">
+                Recent Conversations ({filteredConversations.length})
+              </h3>
             </div>
             <div className="divide-y divide-slate-200">
-              {conversations.map((conversation) => (
-                <div key={conversation.id} className="p-6 hover:bg-slate-50 cursor-pointer">
+              {filteredConversations.map((conversation) => (
+                <div 
+                  key={conversation.id} 
+                  className="p-6 hover:bg-slate-50 cursor-pointer"
+                  onClick={() => handleConversationClick(conversation)}
+                >
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4">
                       <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center">
@@ -125,6 +182,14 @@ const Conversations = () => {
                           <div className="flex items-center space-x-1">
                             <Bot className="h-3 w-3 text-blue-500" />
                             <span className="text-xs text-slate-600">{conversation.agent}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            {conversation.type === 'call' ? (
+                              <Phone className="h-3 w-3 text-green-500" />
+                            ) : (
+                              <MessageSquare className="h-3 w-3 text-blue-500" />
+                            )}
+                            <span className="text-xs text-slate-500">{conversation.type}</span>
                           </div>
                         </div>
                         <p className="text-sm text-slate-600 mb-2">{conversation.lastMessage}</p>
