@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { 
   BarChart3, 
   Bot, 
-  Campaign, 
+  Megaphone, 
   Users, 
   Settings, 
   MessageSquare,
@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
-  { name: 'Campaigns', href: '/campaigns', icon: Campaign },
+  { name: 'Campaigns', href: '/campaigns', icon: Megaphone },
   { name: 'AI Agents', href: '/agents', icon: Bot },
   { name: 'Conversations', href: '/conversations', icon: MessageSquare },
   { name: 'Customers', href: '/customers', icon: Users },

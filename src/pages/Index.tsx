@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
@@ -6,7 +5,7 @@ import KPICard from '@/components/KPICard';
 import LiveActivity from '@/components/LiveActivity';
 import AgentStatus from '@/components/AgentStatus';
 import QuickActions from '@/components/QuickActions';
-import { MessageSquare, TrendingUp, DollarSign, Bot } from 'lucide-react';
+import { MessageSquare, TrendingUp, DollarSign, Bot, BarChart3 } from 'lucide-react';
 
 const Index = () => {
   return (
