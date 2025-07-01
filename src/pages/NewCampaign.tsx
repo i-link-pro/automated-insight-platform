@@ -23,6 +23,29 @@ const NewCampaign = () => {
     navigate('/campaigns');
   };
 
+  const segments = [
+    'Enterprise Customers',
+    'SMB Customers',
+    'Trial Users',
+    'Premium Users',
+    'Churned Users',
+    'New Leads'
+  ];
+
+  const agents = [
+    'Sarah (Sales Expert)',
+    'Mike (Support Specialist)',
+    'Emma (HR Assistant)',
+    'Alex (Marketing Assistant)'
+  ];
+
+  const kbOptions = [
+    'Main Description Only',
+    'Product Documentation',
+    'FAQ Collection',
+    'All Documents'
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />
@@ -71,12 +94,32 @@ const NewCampaign = () => {
 
               <div>
                 <Label htmlFor="target">Target Audience</Label>
-                <Textarea id="target" placeholder="Define your target audience demographics and interests" />
+                <select id="target" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                  <option value="">Select target segment</option>
+                  {segments.map((segment) => (
+                    <option key={segment} value={segment}>{segment}</option>
+                  ))}
+                </select>
               </div>
 
               <div>
-                <Label htmlFor="message">Campaign Message</Label>
-                <Textarea id="message" placeholder="Enter your campaign message or let AI generate one" />
+                <Label htmlFor="agent">Choose Agent</Label>
+                <select id="agent" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                  <option value="">Select an AI agent</option>
+                  {agents.map((agent) => (
+                    <option key={agent} value={agent}>{agent}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <Label htmlFor="knowledge">Knowledge Base Usage</Label>
+                <select id="knowledge" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                  <option value="">Select knowledge base option</option>
+                  {kbOptions.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="flex justify-end space-x-4">

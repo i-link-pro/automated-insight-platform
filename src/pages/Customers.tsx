@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -17,6 +18,8 @@ const Customers = () => {
       company: 'TechCorp Inc.',
       location: 'San Francisco, CA',
       status: 'premium',
+      segment: 'Enterprise',
+      source: 'Website',
       lastContact: '2 days ago',
       totalSpent: '$12,450',
       conversations: 15
@@ -29,6 +32,8 @@ const Customers = () => {
       company: 'StartupXYZ',
       location: 'New York, NY',
       status: 'trial',
+      segment: 'SMB',
+      source: 'Referral',
       lastContact: '1 week ago',
       totalSpent: '$0',
       conversations: 3
@@ -41,6 +46,8 @@ const Customers = () => {
       company: 'Enterprise Co.',
       location: 'Chicago, IL',
       status: 'active',
+      segment: 'Enterprise',
+      source: 'Campaign',
       lastContact: '5 hours ago',
       totalSpent: '$8,900',
       conversations: 28
@@ -53,6 +60,8 @@ const Customers = () => {
       company: 'Consulting Net',
       location: 'Austin, TX',
       status: 'churned',
+      segment: 'SMB',
+      source: 'Social Media',
       lastContact: '2 months ago',
       totalSpent: '$3,200',
       conversations: 7
@@ -144,6 +153,12 @@ const Customers = () => {
                       Status
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Segment
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Source
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Total Spent
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
@@ -190,6 +205,12 @@ const Customers = () => {
                         }`}>
                           {customer.status}
                         </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
+                        {customer.segment}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                        {customer.source}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
                         {customer.totalSpent}

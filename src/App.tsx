@@ -13,6 +13,8 @@ import Conversations from "./pages/Conversations";
 import ConversationDetails from "./pages/ConversationDetails";
 import Customers from "./pages/Customers";
 import AddCustomer from "./pages/AddCustomer";
+import KnowledgeBase from "./pages/KnowledgeBase";
+import AddDocument from "./pages/AddDocument";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import Integrations from "./pages/Integrations";
@@ -36,6 +38,8 @@ const App = () => (
           <Route path="/conversations/:id/:type" element={<ConversationDetails />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/customers/add" element={<AddCustomer />} />
+          <Route path="/knowledge-base" element={<KnowledgeBase />} />
+          <Route path="/knowledge-base/add-document" element={<AddDocument />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/settings/integrations" element={<Integrations />} />

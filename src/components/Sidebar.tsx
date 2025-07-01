@@ -9,7 +9,8 @@ import {
   Settings, 
   MessageSquare,
   TrendingUp,
-  Home
+  Home,
+  BookOpen
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -19,6 +20,7 @@ const navigation = [
   { name: 'AI Agents', href: '/agents', icon: Bot },
   { name: 'Conversations', href: '/conversations', icon: MessageSquare },
   { name: 'Customers', href: '/customers', icon: Users },
+  { name: 'Knowledge Base', href: '/knowledge-base', icon: BookOpen },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];

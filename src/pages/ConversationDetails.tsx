@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, Send, Phone, Video, User, Bot, Clock, Star } from 'lucide-react';
+import { ArrowLeft, Send, Phone, Video, User, Bot, Clock, Star, Play } from 'lucide-react';
 
 const ConversationDetails = () => {
   const navigate = useNavigate();
@@ -32,6 +32,10 @@ const ConversationDetails = () => {
     { id: 6, sender: 'agent', text: 'I\'ve processed a refund for the duplicate charge. You should see it in your account within 3-5 business days. Is there anything else I can help you with?', time: '2:40 PM' },
     { id: 7, sender: 'customer', text: 'No, that\'s perfect. Thanks for helping me with the billing issue!', time: '2:41 PM' }
   ];
+
+  const summary = conversation.type === 'call' 
+    ? "Customer called regarding a billing issue with a duplicate charge on their invoice. The agent successfully identified the problem, processed a refund, and provided clear timeline expectations. The customer was satisfied with the resolution."
+    : "Customer contacted support via chat about a billing discrepancy. Agent quickly identified and resolved the duplicate charge issue, processing a refund and explaining the timeline. Issue resolved successfully with high customer satisfaction.";
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -102,6 +106,10 @@ const ConversationDetails = () => {
               {conversation.type === 'call' && (
                 <div className="mt-6 pt-6 border-t border-slate-200">
                   <Button className="w-full mb-2 bg-green-600 hover:bg-green-700">
+                    <Play className="h-4 w-4 mr-2" />
+                    Listen Call
+                  </Button>
+                  <Button className="w-full mb-2 bg-green-600 hover:bg-green-700">
                     <Phone className="h-4 w-4 mr-2" />
                     Call Back
                   </Button>
@@ -114,42 +122,53 @@ const ConversationDetails = () => {
             </div>
 
             {/* Chat/Call Content */}
-            <div className="lg:col-span-3 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col">
-              <div className="p-6 border-b border-slate-200">
-                <h3 className="text-lg font-semibold text-slate-900">
-                  {conversation.type === 'call' ? 'Call Transcript' : 'Chat Messages'}
+            <div className="lg:col-span-3 space-y-6">
+              {/* Summary */}
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">
+                  {conversation.type === 'call' ? 'Call' : 'Chat'} Summary
                 </h3>
+                <p className="text-slate-600 text-sm leading-relaxed">{summary}</p>
               </div>
 
-              <div className="flex-1 p-6 space-y-4 max-h-96 overflow-y-auto">
-                {messages.map((message) => (
-                  <div key={message.id} className={`flex ${message.sender === 'customer' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                      message.sender === 'customer' 
-                        ? 'bg-blue-600 text-white' 
-                        : 'bg-slate-100 text-slate-900'
-                    }`}>
-                      <p className="text-sm">{message.text}</p>
-                      <p className={`text-xs mt-1 ${
-                        message.sender === 'customer' ? 'text-blue-100' : 'text-slate-500'
+              {/* Messages/Transcript */}
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col">
+                <div className="p-6 border-b border-slate-200">
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    {conversation.type === 'call' ? 'Call Transcript' : 'Chat Messages'}
+                  </h3>
+                </div>
+
+                <div className="flex-1 p-6 space-y-4 max-h-96 overflow-y-auto">
+                  {messages.map((message) => (
+                    <div key={message.id} className={`flex ${message.sender === 'customer' ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                        message.sender === 'customer' 
+                          ? 'bg-blue-600 text-white' 
+                          : 'bg-slate-100 text-slate-900'
                       }`}>
-                        {message.time}
-                      </p>
+                        <p className="text-sm">{message.text}</p>
+                        <p className={`text-xs mt-1 ${
+                          message.sender === 'customer' ? 'text-blue-100' : 'text-slate-500'
+                        }`}>
+                          {message.time}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {conversation.type === 'chat' && conversation.status === 'active' && (
+                  <div className="p-6 border-t border-slate-200">
+                    <div className="flex space-x-2">
+                      <Input placeholder="Type your message..." className="flex-1" />
+                      <Button className="bg-blue-600 hover:bg-blue-700">
+                        <Send className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
-
-              {conversation.type === 'chat' && conversation.status === 'active' && (
-                <div className="p-6 border-t border-slate-200">
-                  <div className="flex space-x-2">
-                    <Input placeholder="Type your message..." className="flex-1" />
-                    <Button className="bg-blue-600 hover:bg-blue-700">
-                      <Send className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </main>

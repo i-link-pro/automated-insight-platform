@@ -23,6 +23,23 @@ const AddCustomer = () => {
     navigate('/customers');
   };
 
+  const segments = [
+    'Enterprise',
+    'SMB',
+    'Startup',
+    'Individual'
+  ];
+
+  const sources = [
+    'Website',
+    'Referral',
+    'Campaign',
+    'Social Media',
+    'Cold Outreach',
+    'Event',
+    'Partner'
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />
@@ -77,6 +94,27 @@ const AddCustomer = () => {
               <div>
                 <Label htmlFor="location">Location</Label>
                 <Input id="location" placeholder="City, State" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="segment">Customer Segment</Label>
+                  <select id="segment" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Select segment</option>
+                    {segments.map((segment) => (
+                      <option key={segment} value={segment}>{segment}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label htmlFor="source">Source</Label>
+                  <select id="source" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Select source</option>
+                    {sources.map((source) => (
+                      <option key={source} value={source}>{source}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div>

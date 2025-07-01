@@ -55,13 +55,7 @@ const CreateAgent = () => {
 
               <div>
                 <Label htmlFor="role">Role/Specialization</Label>
-                <select id="role" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option value="">Select role</option>
-                  <option value="sales">Sales Expert</option>
-                  <option value="support">Support Specialist</option>
-                  <option value="hr">HR Assistant</option>
-                  <option value="marketing">Marketing Assistant</option>
-                </select>
+                <Textarea id="role" placeholder="Describe the agent's role, responsibilities, and areas of expertise in detail" required />
               </div>
 
               <div>
@@ -74,28 +68,13 @@ const CreateAgent = () => {
               </div>
 
               <div>
-                <Label htmlFor="personality">Personality & Tone</Label>
-                <Textarea id="personality" placeholder="Describe the agent's personality, communication style, and tone" />
-              </div>
-
-              <div>
                 <Label htmlFor="instructions">System Instructions</Label>
                 <Textarea id="instructions" placeholder="Provide specific instructions for how the agent should behave and respond" />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="temperature">Response Creativity</Label>
-                  <Input id="temperature" type="range" min="0" max="1" step="0.1" defaultValue="0.3" />
-                  <div className="flex justify-between text-xs text-slate-500 mt-1">
-                    <span>Focused</span>
-                    <span>Creative</span>
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="max-tokens">Max Response Length</Label>
-                  <Input id="max-tokens" type="number" placeholder="500" />
-                </div>
+              <div>
+                <Label htmlFor="max-tokens">Max Response Length</Label>
+                <Input id="max-tokens" type="number" placeholder="500" />
               </div>
 
               <div className="flex justify-end space-x-4">
