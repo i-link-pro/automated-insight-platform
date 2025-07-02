@@ -43,10 +43,13 @@ const Settings = () => {
                   <Shield className="h-4 w-4 mr-3" />
                   Security
                 </a>
-                <a href="#" className="flex items-center px-3 py-2 text-sm rounded-lg text-slate-700 hover:bg-slate-50">
+                <button 
+                  onClick={() => navigate('/billing')}
+                  className="flex items-center px-3 py-2 text-sm rounded-lg text-slate-700 hover:bg-slate-50 w-full text-left"
+                >
                   <CreditCard className="h-4 w-4 mr-3" />
                   Billing
-                </a>
+                </button>
                 <a href="#" className="flex items-center px-3 py-2 text-sm rounded-lg text-slate-700 hover:bg-slate-50">
                   <Database className="h-4 w-4 mr-3" />
                   Data & Privacy
