@@ -18,27 +18,10 @@ const AddCustomer = () => {
     e.preventDefault();
     toast({
       title: "Customer Added",
-      description: "New customer has been added to your database.",
+      description: "New customer has been added successfully.",
     });
     navigate('/customers');
   };
-
-  const segments = [
-    'Enterprise',
-    'SMB',
-    'Startup',
-    'Individual'
-  ];
-
-  const sources = [
-    'Website',
-    'Referral',
-    'Campaign',
-    'Social Media',
-    'Cold Outreach',
-    'Event',
-    'Partner'
-  ];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -65,71 +48,58 @@ const AddCustomer = () => {
 
           <div className="max-w-2xl">
             <form onSubmit={handleSubmit} className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-6">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="firstName">First Name</Label>
-                  <Input id="firstName" placeholder="John" required />
+                  <Input id="firstName" placeholder="Enter first name" required />
                 </div>
                 <div>
                   <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" placeholder="Smith" required />
+                  <Input id="lastName" placeholder="Enter last name" required />
                 </div>
               </div>
 
               <div>
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="john.smith@company.com" required />
+                <Input id="email" type="email" placeholder="Enter email address" required />
               </div>
 
               <div>
                 <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" type="tel" placeholder="+1 (555) 123-4567" />
+                <Input id="phone" placeholder="Enter phone number" />
               </div>
 
-              <div>
-                <Label htmlFor="company">Company</Label>
-                <Input id="company" placeholder="Company Name" />
-              </div>
-
-              <div>
-                <Label htmlFor="location">Location</Label>
-                <Input id="location" placeholder="City, State" />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="segment">Customer Segment</Label>
                   <select id="segment" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="">Select segment</option>
-                    {segments.map((segment) => (
-                      <option key={segment} value={segment}>{segment}</option>
-                    ))}
+                    <option value="premium">Premium</option>
+                    <option value="standard">Standard</option>
+                    <option value="trial">Trial</option>
                   </select>
                 </div>
                 <div>
                   <Label htmlFor="source">Source</Label>
                   <select id="source" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="">Select source</option>
-                    {sources.map((source) => (
-                      <option key={source} value={source}>{source}</option>
-                    ))}
+                    <option value="website">Website</option>
+                    <option value="referral">Referral</option>
+                    <option value="social-media">Social Media</option>
+                    <option value="advertising">Advertising</option>
+                    <option value="direct">Direct</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="status">Customer Status</Label>
-                <select id="status" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option value="trial">Trial</option>
-                  <option value="active">Active</option>
-                  <option value="premium">Premium</option>
-                  <option value="churned">Churned</option>
-                </select>
+                <Label htmlFor="company">Company</Label>
+                <Input id="company" placeholder="Enter company name" />
               </div>
 
               <div>
                 <Label htmlFor="notes">Notes</Label>
-                <Textarea id="notes" placeholder="Additional notes about the customer" />
+                <Textarea id="notes" placeholder="Add any additional notes about the customer" />
               </div>
 
               <div className="flex justify-end space-x-4">

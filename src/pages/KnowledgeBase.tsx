@@ -15,6 +15,7 @@ const KnowledgeBase = () => {
       name: 'Product Documentation',
       type: 'document',
       source: 'uploaded',
+      category: 'Product Info',
       lastUpdated: '2 days ago',
       size: '2.4 MB'
     },
@@ -23,6 +24,7 @@ const KnowledgeBase = () => {
       name: 'FAQ Collection',
       type: 'document',
       source: 'api',
+      category: 'Support',
       lastUpdated: '1 week ago',
       size: '1.8 MB'
     }
@@ -42,18 +44,9 @@ const KnowledgeBase = () => {
         <Sidebar />
         
         <main className="flex-1 p-6">
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900 mb-2">Knowledge Base</h1>
-              <p className="text-slate-600">Manage your AI knowledge sources and documentation</p>
-            </div>
-            <Button 
-              className="bg-blue-600 hover:bg-blue-700"
-              onClick={() => navigate('/knowledge-base/add-document')}
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Document
-            </Button>
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-slate-900 mb-2">Knowledge Base</h1>
+            <p className="text-slate-600">Manage your AI knowledge sources and documentation</p>
           </div>
 
           {/* Main Description */}
@@ -70,28 +63,17 @@ const KnowledgeBase = () => {
             <div className="text-sm text-slate-500">Last updated: 3 days ago</div>
           </div>
 
-          {/* Source Integrations */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 mb-8">
-            <h3 className="text-lg font-semibold text-slate-900 mb-4">Source Integrations</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {integrations.map((integration) => (
-                <div key={integration.name} className="border border-slate-200 rounded-lg p-4">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <integration.icon className="h-6 w-6 text-blue-600" />
-                    <span className="font-medium text-slate-900">{integration.name}</span>
-                  </div>
-                  <Button variant="outline" size="sm" className="w-full">
-                    Connect
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Documents List */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200">
-            <div className="p-6 border-b border-slate-200">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8">
+            <div className="p-6 border-b border-slate-200 flex justify-between items-center">
               <h3 className="text-lg font-semibold text-slate-900">Documents</h3>
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700"
+                onClick={() => navigate('/knowledge-base/add-document')}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add Document
+              </Button>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -99,6 +81,9 @@ const KnowledgeBase = () => {
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Document
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Category
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Source
@@ -123,6 +108,11 @@ const KnowledgeBase = () => {
                           <span className="text-sm font-medium text-slate-900">{doc.name}</span>
                         </div>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                          {doc.category}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
                         {doc.source}
                       </td>
@@ -143,6 +133,24 @@ const KnowledgeBase = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Source Integrations */}
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">Source Integrations</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {integrations.map((integration) => (
+                <div key={integration.name} className="border border-slate-200 rounded-lg p-4">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <integration.icon className="h-6 w-6 text-blue-600" />
+                    <span className="font-medium text-slate-900">{integration.name}</span>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">
+                    Connect
+                  </Button>
+                </div>
+              ))}
             </div>
           </div>
         </main>

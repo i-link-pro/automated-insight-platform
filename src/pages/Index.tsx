@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
@@ -5,7 +6,7 @@ import KPICard from '@/components/KPICard';
 import LiveActivity from '@/components/LiveActivity';
 import AgentStatus from '@/components/AgentStatus';
 import QuickActions from '@/components/QuickActions';
-import { MessageSquare, TrendingUp, DollarSign, Bot, BarChart3 } from 'lucide-react';
+import { MessageSquare, DollarSign, Bot, BarChart3 } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -26,7 +27,7 @@ const Index = () => {
           </div>
 
           {/* KPI Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <KPICard
               title="Active Conversations"
               value="127"
@@ -34,14 +35,6 @@ const Index = () => {
               trend="up"
               icon={MessageSquare}
               iconColor="bg-blue-500"
-            />
-            <KPICard
-              title="Campaign ROI"
-              value="+34.5%"
-              change="+2.1%"
-              trend="up"
-              icon={TrendingUp}
-              iconColor="bg-green-500"
             />
             <KPICard
               title="Monthly Costs"
@@ -64,6 +57,7 @@ const Index = () => {
           {/* Dashboard Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
+              <QuickActions />
               <LiveActivity />
               
               <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
@@ -84,7 +78,6 @@ const Index = () => {
             
             <div className="space-y-6">
               <AgentStatus />
-              <QuickActions />
             </div>
           </div>
         </main>

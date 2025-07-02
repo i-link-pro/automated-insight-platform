@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
-import { Plus, Play, Pause, BarChart3, Users, Calendar } from 'lucide-react';
+import { Plus, Play, Pause, BarChart3 } from 'lucide-react';
 
 const Campaigns = () => {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ const Campaigns = () => {
           </div>
 
           {/* Campaign Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
               <div className="flex items-center justify-between">
                 <div>
@@ -88,24 +89,6 @@ const Campaigns = () => {
                   <p className="text-2xl font-bold text-green-600">3</p>
                 </div>
                 <Play className="h-8 w-8 text-green-500" />
-              </div>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-slate-600">Total Contacts</p>
-                  <p className="text-2xl font-bold text-slate-900">24,177</p>
-                </div>
-                <Users className="h-8 w-8 text-purple-500" />
-              </div>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-slate-600">Avg ROI</p>
-                  <p className="text-2xl font-bold text-orange-600">1,264%</p>
-                </div>
-                <Calendar className="h-8 w-8 text-orange-500" />
               </div>
             </div>
           </div>
@@ -126,9 +109,6 @@ const Campaigns = () => {
                       Status
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                      Contacts
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Engagement
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
@@ -144,7 +124,7 @@ const Campaigns = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-slate-200">
                   {campaigns.map((campaign) => (
-                    <tr key={campaign.id} className="hover:bg-slate-50">
+                    <tr key={campaign.id} className="hover:bg-slate-50 cursor-pointer" onClick={() => navigate(`/campaigns/${campaign.id}`)}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="font-medium text-slate-900">{campaign.name}</div>
                       </td>
@@ -160,9 +140,6 @@ const Campaigns = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
-                        {campaign.contacts.toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                         {campaign.engaged.toLocaleString()} ({Math.round((campaign.engaged/campaign.contacts)*100)}%)
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
@@ -173,10 +150,10 @@ const Campaigns = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); }}>
                             {campaign.status === 'active' ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                           </Button>
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); }}>
                             Edit
                           </Button>
                         </div>

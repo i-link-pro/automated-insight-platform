@@ -5,11 +5,11 @@ import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, Send, Phone, Video, User, Bot, Clock, Star, Play } from 'lucide-react';
+import { ArrowLeft, Send, Phone, Video, User, Bot, Clock, Star, Play, Eye, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 const ConversationDetails = () => {
   const navigate = useNavigate();
-  const { id, type } = useParams(); // type can be 'chat' or 'call'
+  const { id, type } = useParams();
 
   const conversation = {
     id: id,
@@ -20,7 +20,9 @@ const ConversationDetails = () => {
     startTime: '2:30 PM',
     duration: '12 min',
     sentiment: 'positive',
-    rating: 5
+    rating: 5,
+    targetAchieved: true,
+    goal: 'Resolve billing issue'
   };
 
   const messages = [
@@ -31,6 +33,12 @@ const ConversationDetails = () => {
     { id: 5, sender: 'customer', text: 'That would be great, thank you!', time: '2:34 PM' },
     { id: 6, sender: 'agent', text: 'I\'ve processed a refund for the duplicate charge. You should see it in your account within 3-5 business days. Is there anything else I can help you with?', time: '2:40 PM' },
     { id: 7, sender: 'customer', text: 'No, that\'s perfect. Thanks for helping me with the billing issue!', time: '2:41 PM' }
+  ];
+
+  const nextActions = [
+    { id: 1, action: 'Add lead to CRM', status: 'success', datetime: '17-05-2025 16:43', type: 'success' },
+    { id: 2, action: 'Send follow-up email', status: 'pending', datetime: '17-05-2025 17:00', type: 'pending' },
+    { id: 3, action: 'Update customer segment', status: 'failed', datetime: '17-05-2025 16:45', type: 'error' }
   ];
 
   const summary = conversation.type === 'call' 
@@ -103,6 +111,30 @@ const ConversationDetails = () => {
                 </div>
               </div>
 
+              {/* Analysis Result */}
+              <div className="mt-6 pt-6 border-t border-slate-200">
+                <h4 className="text-sm font-semibold text-slate-900 mb-3">Result Analysis</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    {conversation.targetAchieved ? 
+                      <CheckCircle className="h-4 w-4 text-green-600" /> : 
+                      <XCircle className="h-4 w-4 text-red-600" />
+                    }
+                    <span className={`text-sm font-medium ${conversation.targetAchieved ? 'text-green-600' : 'text-red-600'}`}>
+                      {conversation.targetAchieved ? 'Target Achieved' : 'Target Not Achieved'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600">Goal: {conversation.goal}</p>
+                  <p className="text-xs text-slate-600">
+                    Recommendation: Follow up within 24 hours to ensure customer satisfaction
+                  </p>
+                  <Button variant="outline" size="sm" className="w-full mt-2">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Full Analysis
+                  </Button>
+                </div>
+              </div>
+
               {conversation.type === 'call' && (
                 <div className="mt-6 pt-6 border-t border-slate-200">
                   <Button className="w-full mb-2 bg-green-600 hover:bg-green-700">
@@ -129,6 +161,50 @@ const ConversationDetails = () => {
                   {conversation.type === 'call' ? 'Call' : 'Chat'} Summary
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed">{summary}</p>
+              </div>
+
+              {/* Next Actions */}
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 className="text-lg font-semibold text-slate-900 mb-4">Next Actions</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-slate-50">
+                      <tr>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase">Action</th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase">Status</th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase">DateTime</th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase">Logs</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                      {nextActions.map((action) => (
+                        <tr key={action.id}>
+                          <td className="px-4 py-3 text-sm text-slate-900">{action.action}</td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center space-x-2">
+                              {action.type === 'success' && <CheckCircle className="h-4 w-4 text-green-600" />}
+                              {action.type === 'pending' && <AlertCircle className="h-4 w-4 text-yellow-600" />}
+                              {action.type === 'error' && <XCircle className="h-4 w-4 text-red-600" />}
+                              <span className={`text-sm ${
+                                action.type === 'success' ? 'text-green-600' :
+                                action.type === 'pending' ? 'text-yellow-600' : 'text-red-600'
+                              }`}>
+                                {action.status}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-sm text-slate-600">{action.datetime}</td>
+                          <td className="px-4 py-3">
+                            <Button variant="ghost" size="sm">
+                              <Eye className="h-4 w-4 mr-1" />
+                              Logs
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               {/* Messages/Transcript */}

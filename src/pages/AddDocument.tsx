@@ -54,6 +54,18 @@ const AddDocument = () => {
               </div>
 
               <div>
+                <Label htmlFor="category">Category</Label>
+                <select id="category" className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                  <option value="">Select category</option>
+                  <option value="product-info">Product Info</option>
+                  <option value="support">Support</option>
+                  <option value="policies">Policies</option>
+                  <option value="training">Training</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
                 <Label htmlFor="description">Description</Label>
                 <Textarea id="description" placeholder="Describe what this document contains" />
               </div>

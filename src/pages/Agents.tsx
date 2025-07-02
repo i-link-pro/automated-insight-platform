@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -113,7 +114,11 @@ const Agents = () => {
           {/* Agents Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {agents.map((agent) => (
-              <div key={agent.id} className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+              <div 
+                key={agent.id} 
+                className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() => navigate(`/agents/${agent.id}`)}
+              >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -155,10 +160,10 @@ const Agents = () => {
                 <div className="flex justify-between items-center pt-4 border-t border-slate-200">
                   <span className="text-xs text-slate-500">Updated {agent.lastUpdated}</span>
                   <div className="flex space-x-2">
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); }}>
                       <Settings className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); }}>
                       {agent.status === 'active' ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                     </Button>
                   </div>
