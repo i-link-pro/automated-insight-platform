@@ -19,6 +19,7 @@ const Agents = () => {
       successRate: 91,
       avgResponse: '1.2s',
       model: 'GPT-4 Turbo',
+      version: 'v2.1',
       lastUpdated: '2 hours ago'
     },
     {
@@ -30,6 +31,7 @@ const Agents = () => {
       successRate: 88,
       avgResponse: '2.1s',
       model: 'GPT-4',
+      version: 'v1.8',
       lastUpdated: '1 day ago'
     },
     {
@@ -41,6 +43,7 @@ const Agents = () => {
       successRate: 95,
       avgResponse: '0.9s',
       model: 'GPT-3.5 Turbo',
+      version: 'v3.0',
       lastUpdated: '15 min ago'
     }
   ];
@@ -127,6 +130,7 @@ const Agents = () => {
                     <div>
                       <h3 className="text-lg font-semibold text-slate-900">{agent.name}</h3>
                       <p className="text-sm text-slate-600">{agent.role}</p>
+                      <p className="text-xs text-blue-600 font-medium">{agent.version}</p>
                     </div>
                   </div>
                   <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${

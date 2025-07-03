@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Settings, Bot, MessageSquare, TrendingUp, Clock, Star } from 'lucide-react';
+import { ArrowLeft, Settings, Bot, MessageSquare, TrendingUp, Clock, Star, History } from 'lucide-react';
 
 const AgentDetails = () => {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const AgentDetails = () => {
     successRate: 91,
     avgResponse: '1.2s',
     model: 'GPT-4 Turbo',
+    version: 'v2.1',
     totalConversations: 1847,
     rating: 4.8,
     uptime: '99.9%'
@@ -29,6 +30,11 @@ const AgentDetails = () => {
     { id: 2, customer: 'Emma Wilson', status: 'active', duration: '2m 15s', result: 'pending' },
     { id: 3, customer: 'Mike Johnson', status: 'completed', duration: '8m 47s', result: 'success' },
   ];
+
+  const handleVersionHistory = () => {
+    // Navigate to version history page or show modal
+    console.log('Show version history for agent', id);
+  };
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -48,13 +54,24 @@ const AgentDetails = () => {
               Back to Agents
             </Button>
             <div className="flex-1">
-              <h1 className="text-2xl font-bold text-slate-900">{agent.name}</h1>
+              <div className="flex items-center space-x-3">
+                <h1 className="text-2xl font-bold text-slate-900">{agent.name}</h1>
+                <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
+                  {agent.version}
+                </span>
+              </div>
               <p className="text-slate-600">{agent.role} - Performance Dashboard</p>
             </div>
-            <Button variant="outline">
-              <Settings className="h-4 w-4 mr-2" />
-              Edit Agent
-            </Button>
+            <div className="flex space-x-2">
+              <Button variant="outline" onClick={handleVersionHistory}>
+                <History className="h-4 w-4 mr-2" />
+                Version History
+              </Button>
+              <Button variant="outline">
+                <Settings className="h-4 w-4 mr-2" />
+                Edit Agent
+              </Button>
+            </div>
           </div>
 
           {/* Agent Overview */}
@@ -152,6 +169,10 @@ const AgentDetails = () => {
                 <div>
                   <p className="text-sm text-slate-600">AI Model</p>
                   <p className="text-sm font-medium text-slate-900">{agent.model}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-600">Version</p>
+                  <p className="text-sm font-medium text-blue-600">{agent.version}</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-600">Total Conversations</p>
