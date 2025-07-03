@@ -6,7 +6,7 @@ import KPICard from '@/components/KPICard';
 import LiveActivity from '@/components/LiveActivity';
 import AgentStatus from '@/components/AgentStatus';
 import QuickActions from '@/components/QuickActions';
-import { MessageSquare, DollarSign, Bot, BarChart3 } from 'lucide-react';
+import { MessageSquare, DollarSign, Bot } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -59,21 +59,6 @@ const Index = () => {
             <div className="lg:col-span-2 space-y-6">
               <QuickActions />
               <LiveActivity />
-              
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold text-slate-900 mb-6">
-                  Conversation Volume
-                </h3>
-                <div className="h-64 flex items-center justify-center bg-slate-50 rounded-lg">
-                  <div className="text-center">
-                    <BarChart3 className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                    <p className="text-slate-500">Chart visualization would go here</p>
-                    <p className="text-sm text-slate-400 mt-1">
-                      Integration with Recharts for beautiful charts
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
             
             <div className="space-y-6">

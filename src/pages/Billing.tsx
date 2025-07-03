@@ -128,10 +128,31 @@ const Billing = () => {
             </div>
           </div>
 
+          {/* Pay as you go - moved up */}
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 mb-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="text-lg font-semibold text-slate-900 mb-2">Pay as you go</h4>
+                <p className="text-slate-600 mb-2">$0.05 per conversation</p>
+                <p className="text-sm text-slate-500">Perfect for testing or irregular usage</p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="text-right">
+                  <p className="text-sm text-slate-600">Current Balance</p>
+                  <p className="text-xl font-bold text-green-600">$45.30</p>
+                </div>
+                <Button>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Top Up
+                </Button>
+              </div>
+            </div>
+          </div>
+
           {/* Pricing Plans */}
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-slate-900 mb-6">Pricing Plans</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {tariffs.map((tariff) => (
                 <div key={tariff.name} className={`bg-white rounded-xl p-6 shadow-sm border ${
                   tariff.current ? 'border-blue-500 ring-2 ring-blue-100' : 'border-slate-200'
@@ -167,27 +188,6 @@ const Billing = () => {
                   </Button>
                 </div>
               ))}
-            </div>
-
-            {/* Pay as you go */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-2">Pay as you go</h4>
-                  <p className="text-slate-600 mb-2">$0.05 per conversation</p>
-                  <p className="text-sm text-slate-500">Perfect for testing or irregular usage</p>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="text-right">
-                    <p className="text-sm text-slate-600">Current Balance</p>
-                    <p className="text-xl font-bold text-green-600">$45.30</p>
-                  </div>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Top Up
-                  </Button>
-                </div>
-              </div>
             </div>
           </div>
 

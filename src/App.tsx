@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -26,6 +25,8 @@ import Settings from "./pages/Settings";
 import Billing from "./pages/Billing";
 import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
+import Reports from "./pages/Reports";
+import SendingRuleDetails from "./pages/SendingRuleDetails";
 
 const queryClient = new QueryClient();
 
@@ -47,11 +48,13 @@ const App = () => (
           <Route path="/conversations" element={<Conversations />} />
           <Route path="/conversations/:id/:type" element={<ConversationDetails />} />
           <Route path="/auto-sending" element={<AutoSending />} />
+          <Route path="/auto-sending/:id" element={<SendingRuleDetails />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/customers/add" element={<AddCustomer />} />
           <Route path="/knowledge-base" element={<KnowledgeBase />} />
           <Route path="/knowledge-base/add-document" element={<AddDocument />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/reports" element={<Reports />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/agent-performance-review" element={<AgentPerformanceReview />} />
           <Route path="/settings" element={<Settings />} />

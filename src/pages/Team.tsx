@@ -5,7 +5,7 @@ import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Plus, Mail, Shield, Ban, User } from 'lucide-react';
+import { Plus, Mail, Shield, Ban, User, Edit, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Team = () => {
@@ -46,6 +46,27 @@ const Team = () => {
       description: `Team invitation sent to ${inviteEmail}`,
     });
     setInviteEmail('');
+  };
+
+  const handleEdit = (memberId: number) => {
+    toast({
+      title: "Edit Member",
+      description: "Edit member functionality would open here",
+    });
+  };
+
+  const handleRemove = (memberId: number) => {
+    toast({
+      title: "Member Removed",
+      description: "Team member has been removed",
+    });
+  };
+
+  const handleToggleStatus = (memberId: number) => {
+    toast({
+      title: "Status Updated",
+      description: "Member status has been updated",
+    });
   };
 
   return (
@@ -142,11 +163,27 @@ const Team = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm">
-                            <Shield className="h-4 w-4" />
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => handleEdit(member.id)}
+                          >
+                            <Edit className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm">
-                            <Ban className="h-4 w-4" />
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => handleToggleStatus(member.id)}
+                          >
+                            {member.status === 'active' ? <Ban className="h-4 w-4" /> : <Shield className="h-4 w-4" />}
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            className="text-red-600 hover:text-red-700"
+                            onClick={() => handleRemove(member.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
                       </td>

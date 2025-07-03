@@ -25,6 +25,7 @@ const navigation = [
   { name: 'Customers', href: '/customers', icon: Users },
   { name: 'Knowledge Base', href: '/knowledge-base', icon: BookOpen },
   { name: 'Team', href: '/team', icon: UserPlus },
+  { name: 'Reports', href: '/reports', icon: TrendingUp },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];

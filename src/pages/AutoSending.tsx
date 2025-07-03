@@ -153,7 +153,12 @@ const AutoSending = () => {
                   {rules.map((rule) => (
                     <tr key={rule.id} className="border-b border-slate-100 hover:bg-slate-50">
                       <td className="py-4 px-6">
-                        <div className="font-medium text-slate-900">{rule.name}</div>
+                        <a 
+                          href={`/auto-sending/${rule.id}`}
+                          className="font-medium text-blue-600 hover:text-blue-800"
+                        >
+                          {rule.name}
+                        </a>
                       </td>
                       <td className="py-4 px-6 text-slate-600">{rule.trigger}</td>
                       <td className="py-4 px-6 text-slate-600">{rule.delay}</td>
