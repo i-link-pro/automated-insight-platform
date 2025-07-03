@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +15,7 @@ import CreateAgent from "./pages/CreateAgent";
 import Conversations from "./pages/Conversations";
 import ConversationDetails from "./pages/ConversationDetails";
 import AutoSending from "./pages/AutoSending";
+import Channels from "./pages/Channels";
 import Customers from "./pages/Customers";
 import AddCustomer from "./pages/AddCustomer";
 import KnowledgeBase from "./pages/KnowledgeBase";
@@ -49,6 +51,7 @@ const App = () => (
           <Route path="/conversations/:id/:type" element={<ConversationDetails />} />
           <Route path="/auto-sending" element={<AutoSending />} />
           <Route path="/auto-sending/:id" element={<SendingRuleDetails />} />
+          <Route path="/channels" element={<Channels />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/customers/add" element={<AddCustomer />} />
           <Route path="/knowledge-base" element={<KnowledgeBase />} />

@@ -12,7 +12,8 @@ import {
   Home,
   BookOpen,
   UserPlus,
-  Clock
+  Clock,
+  Radio
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -22,6 +23,7 @@ const navigation = [
   { name: 'AI Agents', href: '/agents', icon: Bot },
   { name: 'Conversations', href: '/conversations', icon: MessageSquare },
   { name: 'Auto Sending', href: '/auto-sending', icon: Clock },
+  { name: 'Channels', href: '/channels', icon: Radio },
   { name: 'Customers', href: '/customers', icon: Users },
   { name: 'Knowledge Base', href: '/knowledge-base', icon: BookOpen },
   { name: 'Team', href: '/team', icon: UserPlus },
