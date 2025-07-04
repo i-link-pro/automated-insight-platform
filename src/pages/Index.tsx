@@ -6,7 +6,7 @@ import KPICard from '@/components/KPICard';
 import LiveActivity from '@/components/LiveActivity';
 import AgentStatus from '@/components/AgentStatus';
 import QuickActions from '@/components/QuickActions';
-import { MessageSquare, DollarSign, Bot, Settings } from 'lucide-react';
+import { MessageSquare, DollarSign, Bot, Settings, GripVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -17,8 +17,64 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+interface WidgetItem {
+  id: string;
+  name: string;
+  enabled: boolean;
+  type: 'kpi' | 'widget';
+}
+
 const Index = () => {
   const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
+  const [widgets, setWidgets] = useState<WidgetItem[]>([
+    { id: 'conversations', name: 'Active Conversations', enabled: true, type: 'kpi' },
+    { id: 'costs', name: 'Monthly Costs', enabled: true, type: 'kpi' },
+    { id: 'efficiency', name: 'Agent Efficiency', enabled: true, type: 'kpi' },
+    { id: 'quick-actions', name: 'Quick Actions', enabled: true, type: 'widget' },
+    { id: 'live-activity', name: 'Live Activity', enabled: true, type: 'widget' },
+    { id: 'agent-status', name: 'Agent Status', enabled: true, type: 'widget' },
+  ]);
+  const [draggedItem, setDraggedItem] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, itemId: string) => {
+    setDraggedItem(itemId);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e: React.DragEvent, targetId: string) => {
+    e.preventDefault();
+    if (!draggedItem || draggedItem === targetId) return;
+
+    const draggedIndex = widgets.findIndex(w => w.id === draggedItem);
+    const targetIndex = widgets.findIndex(w => w.id === targetId);
+
+    if (draggedIndex === -1 || targetIndex === -1) return;
+
+    const newWidgets = [...widgets];
+    const [draggedWidget] = newWidgets.splice(draggedIndex, 1);
+    newWidgets.splice(targetIndex, 0, draggedWidget);
+
+    setWidgets(newWidgets);
+    setDraggedItem(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedItem(null);
+  };
+
+  const toggleWidget = (id: string) => {
+    setWidgets(widgets.map(w => 
+      w.id === id ? { ...w, enabled: !w.enabled } : w
+    ));
+  };
+
+  const kpiWidgets = widgets.filter(w => w.type === 'kpi');
+  const dashboardWidgets = widgets.filter(w => w.type === 'widget');
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -49,46 +105,64 @@ const Index = () => {
                 <DialogHeader>
                   <DialogTitle>Customize Dashboard Widgets</DialogTitle>
                   <DialogDescription>
-                    Select which widgets you want to display on your dashboard.
+                    Select which widgets you want to display and drag to reorder them.
                   </DialogDescription>
                 </DialogHeader>
                 
-                <div className="space-y-4 py-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-3">
-                      <h3 className="font-medium text-sm">KPI Cards</h3>
-                      <div className="space-y-2">
-                        <label className="flex items-center space-x-2">
-                          <input type="checkbox" defaultChecked className="rounded" />
-                          <span className="text-sm">Active Conversations</span>
-                        </label>
-                        <label className="flex items-center space-x-2">
-                          <input type="checkbox" defaultChecked className="rounded" />
-                          <span className="text-sm">Monthly Costs</span>
-                        </label>
-                        <label className="flex items-center space-x-2">
-                          <input type="checkbox" defaultChecked className="rounded" />
-                          <span className="text-sm">Agent Efficiency</span>
-                        </label>
-                      </div>
+                <div className="space-y-6 py-4">
+                  <div>
+                    <h3 className="font-medium text-sm mb-3">KPI Cards</h3>
+                    <div className="space-y-2">
+                      {kpiWidgets.map((widget) => (
+                        <div
+                          key={widget.id}
+                          draggable
+                          onDragStart={(e) => handleDragStart(e, widget.id)}
+                          onDragOver={handleDragOver}
+                          onDrop={(e) => handleDrop(e, widget.id)}
+                          onDragEnd={handleDragEnd}
+                          className={`flex items-center space-x-3 p-2 rounded border bg-white cursor-move transition-colors ${
+                            draggedItem === widget.id ? 'opacity-50' : 'hover:bg-gray-50'
+                          }`}
+                        >
+                          <GripVertical className="h-4 w-4 text-gray-400" />
+                          <input 
+                            type="checkbox" 
+                            checked={widget.enabled}
+                            onChange={() => toggleWidget(widget.id)}
+                            className="rounded" 
+                          />
+                          <span className="text-sm flex-1">{widget.name}</span>
+                        </div>
+                      ))}
                     </div>
-                    
-                    <div className="space-y-3">
-                      <h3 className="font-medium text-sm">Widgets</h3>
-                      <div className="space-y-2">
-                        <label className="flex items-center space-x-2">
-                          <input type="checkbox" defaultChecked className="rounded" />
-                          <span className="text-sm">Quick Actions</span>
-                        </label>
-                        <label className="flex items-center space-x-2">
-                          <input type="checkbox" defaultChecked className="rounded" />
-                          <span className="text-sm">Live Activity</span>
-                        </label>
-                        <label className="flex items-center space-x-2">
-                          <input type="checkbox" defaultChecked className="rounded" />
-                          <span className="text-sm">Agent Status</span>
-                        </label>
-                      </div>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-medium text-sm mb-3">Dashboard Widgets</h3>
+                    <div className="space-y-2">
+                      {dashboardWidgets.map((widget) => (
+                        <div
+                          key={widget.id}
+                          draggable
+                          onDragStart={(e) => handleDragStart(e, widget.id)}
+                          onDragOver={handleDragOver}
+                          onDrop={(e) => handleDrop(e, widget.id)}
+                          onDragEnd={handleDragEnd}
+                          className={`flex items-center space-x-3 p-2 rounded border bg-white cursor-move transition-colors ${
+                            draggedItem === widget.id ? 'opacity-50' : 'hover:bg-gray-50'
+                          }`}
+                        >
+                          <GripVertical className="h-4 w-4 text-gray-400" />
+                          <input 
+                            type="checkbox" 
+                            checked={widget.enabled}
+                            onChange={() => toggleWidget(widget.id)}
+                            className="rounded" 
+                          />
+                          <span className="text-sm flex-1">{widget.name}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
