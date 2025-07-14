@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Zap, Mail, MessageSquare, Database, CreditCard, Bot } from 'lucide-react';
+import { ArrowLeft, Zap, Mail, MessageSquare, Database, CreditCard, Bot, Settings } from 'lucide-react';
 
 const Integrations = () => {
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ const Integrations = () => {
   const integrations = [
     {
       name: 'Zapier',
+      slug: 'zapier',
       description: 'Automate workflows with 5000+ apps',
       icon: Zap,
       status: 'available',
@@ -19,6 +20,7 @@ const Integrations = () => {
     },
     {
       name: 'Slack',
+      slug: 'slack',
       description: 'Get notifications in your Slack workspace',
       icon: MessageSquare,
       status: 'connected',
@@ -26,6 +28,7 @@ const Integrations = () => {
     },
     {
       name: 'Gmail',
+      slug: 'gmail',
       description: 'Send emails directly from campaigns',
       icon: Mail,
       status: 'available',
@@ -33,6 +36,7 @@ const Integrations = () => {
     },
     {
       name: 'Salesforce',
+      slug: 'salesforce',
       description: 'Sync customer data with Salesforce CRM',
       icon: Database,
       status: 'available',
@@ -40,6 +44,7 @@ const Integrations = () => {
     },
     {
       name: 'Stripe',
+      slug: 'stripe',
       description: 'Process payments and track revenue',
       icon: CreditCard,
       status: 'available',
@@ -47,6 +52,7 @@ const Integrations = () => {
     },
     {
       name: 'OpenAI',
+      slug: 'openai',
       description: 'Advanced AI models for conversations',
       icon: Bot,
       status: 'connected',
@@ -103,15 +109,24 @@ const Integrations = () => {
 
                 <p className="text-sm text-slate-600 mb-4">{integration.description}</p>
 
-                <Button 
-                  className={`w-full ${
-                    integration.status === 'connected' 
-                      ? 'bg-red-600 hover:bg-red-700' 
-                      : 'bg-blue-600 hover:bg-blue-700'
-                  }`}
-                >
-                  {integration.status === 'connected' ? 'Disconnect' : 'Connect'}
-                </Button>
+                <div className="flex space-x-2">
+                  <Button 
+                    className={`flex-1 ${
+                      integration.status === 'connected' 
+                        ? 'bg-red-600 hover:bg-red-700' 
+                        : 'bg-blue-600 hover:bg-blue-700'
+                    }`}
+                  >
+                    {integration.status === 'connected' ? 'Disconnect' : 'Connect'}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="icon"
+                    onClick={() => navigate(`/settings/integrations/${integration.slug}/configure`)}
+                  >
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             ))}
           </div>

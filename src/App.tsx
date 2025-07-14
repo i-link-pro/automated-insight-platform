@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -26,6 +25,7 @@ import AgentPerformanceReview from "./pages/AgentPerformanceReview";
 import Settings from "./pages/Settings";
 import Billing from "./pages/Billing";
 import Integrations from "./pages/Integrations";
+import IntegrationConfig from "./pages/IntegrationConfig";
 import NotFound from "./pages/NotFound";
 import Reports from "./pages/Reports";
 import SendingRuleDetails from "./pages/SendingRuleDetails";
@@ -63,6 +63,7 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/billing" element={<Billing />} />
           <Route path="/settings/integrations" element={<Integrations />} />
+          <Route path="/settings/integrations/:integrationName/configure" element={<IntegrationConfig />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
